@@ -19,9 +19,9 @@ function addItem(e) {
 
 
 function populateList(plates = [], platesList) {
-    platesList.innerHTML = plates.map((plate, i) => {
-        return
-        `<li>
+    platesList.innerHTML = plates.map((plate, i) => {//importante añadir en la primera línea `, si no, no pinta//
+        return ` 
+        <li>
             <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''}/>
             <label for="item${i}">${plate.text}</label>
         </li>

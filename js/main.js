@@ -4,6 +4,7 @@ var addItems = document.querySelector('.add-items');
 var itemsList = document.querySelector('.plates');
 var items = JSON.parse(localStorage.getItem('items')) || [];
 var checkThemAllBtn = document.querySelector('.checkThemAll');
+var unCheckThemAllBtn = document.querySelector('.unCheckThemAll');
 
 function setItemToLocalStorage() {
     localStorage.setItem('items', JSON.stringify(items));
@@ -51,9 +52,16 @@ function checkAllItems() {
     })
 }
 
+function unCheckAllItems() {
+    items.map(item => {
+        item.done = false;
+    })
+}
+
 addItems.addEventListener('submit', addItem);
 itemsList.addEventListener('click', toggleDone);
 checkThemAllBtn.addEventListener('click', checkAllItems);
+unCheckThemAllBtn.addEventListener('click', unCheckAllItems);
 
 populateList(items, itemsList);
 

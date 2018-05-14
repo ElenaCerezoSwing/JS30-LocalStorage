@@ -5,11 +5,20 @@ var itemsList = document.querySelector('.plates');
 var items = JSON.parse(localStorage.getItem('items')) || [];
 var checkThemAllBtn = document.querySelector('.checkThemAll');
 var unCheckThemAllBtn = document.querySelector('.unCheckThemAll');
+var removeSelectedItemsBtn = document.querySelector('.deleteSelectedItems');
+var inputRequired = document.getElementById('inputRequired');
+
 
 function setItemToLocalStorage() {
     localStorage.setItem('items', JSON.stringify(items));
-
 }
+
+function removeItemFromLocalStorage() {
+    localStorage.removeItem('items', JSON.stringify(items));
+}
+// function notNeedToBeRequired() {
+//     inputRequired.prop('required', false);
+// }
 
 function addItem(e) {
     e.preventDefault();
@@ -47,21 +56,41 @@ function toggleDone(e) {
 }
 
 function checkAllItems() {
+    // notNeedToBeRequired();
     items.map(item => {
         item.done = true;
     })
+    setItemToLocalStorage();
+    populateList(items, itemsList);
 }
 
 function unCheckAllItems() {
+    // notNeedToBeRequired();
     items.map(item => {
         item.done = false;
     })
+    setItemToLocalStorage();
+    populateList(items, itemsList);
 }
+
+
+function removeCheckedItems() {
+    items.filter(item => {
+        item.done = true;
+    })
+    removeItemFromLocalStorage();
+}
+// setItemToLocalStorage();
+// populateList(items, itemsList);
+
+
 
 addItems.addEventListener('submit', addItem);
 itemsList.addEventListener('click', toggleDone);
 checkThemAllBtn.addEventListener('click', checkAllItems);
 unCheckThemAllBtn.addEventListener('click', unCheckAllItems);
+removeSelectedItemsBtn.addEventListener('click', removeCheckedItems);
+
 
 populateList(items, itemsList);
 

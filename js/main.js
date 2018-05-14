@@ -3,6 +3,12 @@
 var addItems = document.querySelector('.add-items');
 var itemsList = document.querySelector('.plates');
 var items = JSON.parse(localStorage.getItem('items')) || [];
+var checkThemAllBtn = document.querySelector('.checkThemAll');
+
+function setItemToLocalStorage() {
+    localStorage.setItem('items', JSON.stringify(items));
+
+}
 
 function addItem(e) {
     e.preventDefault();
@@ -13,7 +19,7 @@ function addItem(e) {
     };
     items.push(item);
     populateList(items, itemsList);
-    localStorage.setItem('items', JSON.stringify(items));
+    setItemToLocalStorage();
     this.reset();
 }
 
@@ -35,13 +41,19 @@ function toggleDone(e) {
     var el = e.target;
     var index = el.dataset.index;
     items[index].done = !items[index].done;
-    localStorage.setItem('items', JSON.stringify(items));
+    setItemToLocalStorage();
     populateList(items, itemsList);
 }
 
+function checkAllItems() {
+    items.map(item => {
+        item.done = true;
+    })
+}
 
 addItems.addEventListener('submit', addItem);
 itemsList.addEventListener('click', toggleDone);
+checkThemAllBtn.addEventListener('click', checkAllItems);
 
 populateList(items, itemsList);
 

@@ -31,7 +31,7 @@ function populateList(plates = [], platesList) {
 
 
 function toggleDone(e) {
-    if (!e.target.matches(input)) return;
+    if (!e.target.matches('input')) return;
     var el = e.target;
     var index = el.dataset.index;
     items[index].done = !items[index].done;
